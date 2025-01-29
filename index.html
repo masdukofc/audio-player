@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open MP3 On Web</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.0.0/dist/full.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+    <h1 class="text-2xl font-bold mb-4">Audio Player</h1>
+    
+    <div class="flex flex-col gap-4 bg-white p-6 rounded-lg shadow-lg">
+        <audio id="audioPlayer" controls class="w-full">
+            <source id="audioSource" src="/Allah Humma Muffled.wav" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+        
+        <input type="file" id="fileInput" accept="audio/*" class="file-input file-input-bordered w-full max-w-xs" />
+        
+        <input type="url" id="urlInput" placeholder="Enter audio URL" class="input input-bordered w-full max-w-xs" />
+        <button onclick="loadFromWeb()" class="btn btn-primary">Load from Web</button>
+    </div>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const objectURL = URL.createObjectURL(file);
+                document.getElementById('audioSource').src = objectURL;
+                document.getElementById('audioPlayer').load();
+            }
+        });
+
+        function loadFromWeb() {
+            const url = document.getElementById('urlInput').value;
+            if (url) {
+                document.getElementById('audioSource').src = url;
+                document.getElementById('audioPlayer').load();
+            }
+        }
+    </script>
+</body>
+</html>
